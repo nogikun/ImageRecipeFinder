@@ -1,5 +1,5 @@
-from typing import Union,Optional
-from fastapi import FastAPI
+from typing import Union,Optional,Annotated
+from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
 #import mysql.connector
 #import datetime
@@ -20,7 +20,7 @@ class Item(BaseModel):
     name: str
     id: int # DB内に保存されるID
     price: float
-    amount: int
+    n: int
     about: Optional[str] = None
 
 class Resipe(BaseModel):
@@ -28,22 +28,38 @@ class Resipe(BaseModel):
     items: list[Item]
 
 class cart(BaseModel):
-    userid : Optional[int] = None # テスト用に追加
+    #userid : Optional[int] = None # テスト用に追加
     items: list[Item]
 
 app = FastAPI()
 
+#
+# 機能検証用エンドポイント /test
+#
 @app.get("/test/get")
 async def read_root():
-    return {"message":"Test Pass"}
+    return {"message":"Test OK"}
+
+@app.post("/test/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    return {"filename": file.filename}
+
+#
+# エンドポイント
+#
+@app.post("/cam/search")
+async def search_cam(cap : UploadFile):
+    # ここにカメラ画像検索処理を記述
+    return {"item_list":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]}
+
+@app.post("/resipe/search")
+async def search_resipe(resipe: Item):
+    # ここにレシピ検索処理を記述
+    return {"resipe_list":[{"name":"resipe1","items":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]}]}
 
 @app.post("/cart/sum")
 async def sum_cart(cart: cart):
     total = 0
     for item in cart.items:
-        total += item.price * item.amount
+        total += item.price * item.n # 価格×個数を加算
     return {"total":total}
-
-@app.post('/cam/search') # test
-async def search_cam():
-    return {"item_list":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]} # テスト用に追加

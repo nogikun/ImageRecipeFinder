@@ -5,5 +5,8 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    volumes:
+      - ./api/api.py:/api.py
+      - ./api/requirements.txt:/requirements.txt
     ports:
       - "8000:8000"
