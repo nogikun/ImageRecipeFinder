@@ -1,0 +1,5 @@
+# venv
+development/Docker/api/api-venv/*
+
+# 一時ファイル
+development/Docker/api/__pycache__/*

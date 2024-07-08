@@ -1,6 +1,9 @@
 from typing import Union,Optional,Annotated
 from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
+
+from io import BytesIO # メモリ上でバイナリデータを扱うためのモジュール
+import matplotlib.pyplot as plt
 #import mysql.connector
 #import datetime
 
@@ -41,8 +44,12 @@ async def read_root():
     return {"message":"Test OK"}
 
 @app.post("/test/uploadfile/")
-async def create_upload_file(file: UploadFile):
-    return {"filename": file.filename}
+async def create_upload_file(img: UploadFile):
+    memory = await img.read()
+    image = plt.imread(BytesIO(memory), format = img.filename.split('.')[-1])
+    plt.imshow(image)
+    plt.show() # Docker環境内だと表示されない。
+    return {"filename": img.filename}
 
 #
 # エンドポイント
@@ -50,6 +57,8 @@ async def create_upload_file(file: UploadFile):
 @app.post("/cam/search")
 async def search_cam(cap : UploadFile):
     # ここにカメラ画像検索処理を記述
+    memory = await cap.read()
+    image = plt.imread(BytesIO(memory), format = cap.filename.split('.')[-1]) # image ･･･ 画像インスタンス。これをモデルの入力として使えるか要検証
     return {"item_list":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]}
 
 @app.post("/resipe/search")

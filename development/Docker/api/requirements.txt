@@ -3,3 +3,4 @@ fastapi==0.110.0
 #mysql-connector-python==8.2.0
 
 python-multipart==0.0.9
+matplotlib==3.9.1
