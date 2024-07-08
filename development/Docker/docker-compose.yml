@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
   api:
     build:
       context: ./api
