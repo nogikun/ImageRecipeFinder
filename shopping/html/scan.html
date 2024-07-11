@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/scan_style.css">
+    <script src="/javascript/scan_script.js"></script>
+    <title>買い物アシスタント(認識)</title>
+</head>
+<body>
+    <header>
+        <h2>買い物アシスタント</h2>
+    </header>
+    <main>
+        <div class="cart_camera">
+            <!-- カメラ映像 -->
+            <video id="cameraFeed" autoplay playsinline></video>
+            <img src="/img/camera_logo.png" alt="カメラのロゴ">
+        </div>
+
+        <!-- カートの中の点数と金額 -->
+        <div class="incart">
+            <img src="/img/img3.png" alt="カート">
+            <div class="tag">
+                <p>点数</p>
+            </div>
+            <div class="incart_num" id="incart_num"></div>
+            <p>点</p>
+            <div class="tag">
+                <p>合計</p>
+            </div>
+            <p>￥</p>
+            <div class="incart_money" id="incart_money" ></div>
+            <p>円</p>
+        </div>
+
+        <!-- 商品を選択とお会計ボタン -->
+        <div class="cart_button">
+            <p>商品を選択</p>
+            <p>お会計へ</p>
+        </div>
+    </main>
+    <footer>
+        <a href="main.html"><img src="/img/img1.png" alt=""></a>
+        <a href="scan.html"><img src="/img/img2.png" alt=""></a>
+        <a href="cart.html"><img src="/img/img3.png" alt=""></a>
+        <a href="recipe.html"><img src="/img/img4.png" alt=""></a>
+        <a href="check.html"><img src="/img/img5.png" alt=""></a>
+    </footer>
+</body>
+</html>
