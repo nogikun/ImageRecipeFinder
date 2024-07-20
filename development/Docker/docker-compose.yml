@@ -6,15 +6,33 @@ services:
       context: ./db
       dockerfile: Dockerfile
     volumes:
-      - ./db/data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    volumes:
+      - ./pgadmin4/config.json:/pgadmin4/servers.json
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@example.com
+      PGADMIN_DEFAULT_PASSWORD: rootpass
+
+      # 下記の設定によりログインを短縮
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
     volumes:
+      - ./api/components:/components
       - ./api/api.py:/api.py
       - ./api/requirements.txt:/requirements.txt
     ports:
-      - "8000:8000"
+      - "8888:8000"

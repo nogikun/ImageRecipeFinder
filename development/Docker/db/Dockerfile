@@ -1,10 +1,16 @@
 FROM postgres:16.1
 
+# rootユーザーのパスワードを設定
+ENV POSTGRES_PASSWORD=rootpass
+
 # set timezone
 ENV TZ Asia/Tokyo
 
-# set language
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
+# 必要なパッケージのインストールとロケールの設定
+RUN apt-get update
 
+# タイムゾーンの設定
+RUN apt-get install -y tzdata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+EXPOSE 5432
