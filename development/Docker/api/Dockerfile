@@ -1,7 +1,6 @@
 FROM python:3.10.12
 
-# MySQLクライアントをインストール
-RUN apt-get update && apt-get install -y default-mysql-client
+RUN apt-get update
 
 # コンテナ内で必要なファイルやスクリプトをコピー
 #COPY ./api.py /api.py
