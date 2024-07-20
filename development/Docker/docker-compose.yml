@@ -5,6 +5,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    # volumes:
+    #   - ./frontend/app/html:/usr/share/nginx/html
+    #   - ./frontend/app/css:/usr/share/nginx/html/css
+    #   - ./frontend/app/javascript:/usr/share/nginx/html/javascript
+    #   - ./frontend/app/img:/usr/share/nginx/html/img
     ports:
       - "80:80"
 
@@ -42,4 +47,4 @@ services:
       - ./api/api.py:/api.py
       - ./api/requirements.txt:/requirements.txt
     ports:
-      - "8888:8000"
+      - "3000:3000"

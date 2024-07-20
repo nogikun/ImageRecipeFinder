@@ -6,6 +6,6 @@ RUN apt-get update
 #COPY ./api.py /api.py
 #COPY ./requirements.txt /requirements.txt
 
-CMD ["bash", "-c", "pip install --upgrade pip && pip install -r requirements.txt && uvicorn api:app --reload --port 8000 --host 0.0.0.0"]
+CMD ["bash", "-c", "pip install --upgrade pip && pip install -r requirements.txt && uvicorn api:app --reload --port 3000 --host 0.0.0.0"]
 
-EXPOSE 8000
+EXPOSE 3000

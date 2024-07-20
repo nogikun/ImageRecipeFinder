@@ -1,6 +1,7 @@
 from typing import Union,Optional,Annotated
 from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 from io import BytesIO # メモリ上でバイナリデータを扱うためのモジュール
 import matplotlib.pyplot as plt
@@ -33,6 +34,13 @@ class cart(BaseModel):
     items: list[Item]
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #
 # 機能検証用エンドポイント /test
@@ -57,6 +65,15 @@ async def search_cam(cap : UploadFile):
     # ここにカメラ画像検索処理を記述
     memory = await cap.read()
     image = plt.imread(BytesIO(memory), format = cap.filename.split('.')[-1]) # image ･･･ 画像インスタンス。これをモデルの入力として使えるか要検証
+
+    # 画像の形式を加工
+    image = image.transpose(2,0,1) # モデルの入力形式に変換
+    image = image[:3] # 4チャンネル目を削除（すべて1.0のデータのため無効）
+    image = image.transpose(1,2,0) # 元の形式に戻す
+    
+    # 画像を受け取ったことを確認
+    print('画像を受付けました')
+    print("image shape:",image.shape) # 480 x 640 x 3 (width x height x color channel) の形式である事を想定
 
     # 
     # ここに画像検索処理を記述
