@@ -31,13 +31,28 @@ window.onload = function() {
 document.addEventListener('DOMContentLoaded', async () => {
     const stream = await setupCamera();
     const video = document.getElementById('cameraFeed');
-    const captureButton = document.getElementById('captureButton');
+    const popup = document.getElementById('popup');
 
-    document.getElementById('captureButton').addEventListener('click', () => {
+    // ポップアップウィンドウの閉じるボタン（×ボタン）がクリックされた時の処理
+    const popupClose = document.querySelector('.popup-close');
+    const popupOverlay = document.querySelector('.popup-overlay');
+    console.log('popupClose:', popupClose);
+    popupClose.addEventListener('click', () => {
+        popup.checked = false; // チェックボックスを非チェック状態にする
+        console.log('popup:', popup.checked);
+        popupOverlay.style.display = 'none'; // ポップアップウィンドウを非表示にする
+        console.log('popupOverlay:', popupOverlay.style.display);
+    });
+
+    const captureButton = document.querySelector('#captureButton');
+    captureButton.addEventListener('click', () => {
+        // 結果の表示に関する変数
+        const popupOverlay = document.querySelector('.popup-overlay');
+
+        // カメラ映像に関する変数
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-
         const context = canvas.getContext('2d'); // 白紙のキャンバスを取得
         context.drawImage(video, 0, 0, canvas.width, canvas.height); // キャンバスにカメラの映像を描画
 
@@ -72,6 +87,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                             //
                             // ココに商品情報を表示する処理を追加
                             //
+                            // チェックボックスの状態を切り替えることでポップアップウィンドウの表示・非表示を制御
+                            popup.checked = true;
+                            // ポップアップウィンドウのオーバーレイが表示されるようにする
+                            console.log('popup:', popup.checked);
+                            if (popup.checked) {
+                                popupOverlay.style.display = 'block';
+                            } else {
+                                popupOverlay.style.display = 'none';
+                            }
                         }
                       });
                 } else {
