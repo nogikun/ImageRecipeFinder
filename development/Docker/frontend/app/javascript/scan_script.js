@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // バイナリデータをPOSTリクエストで送信
             try {
                 const host = window.location.hostname; // ホスト名を取得 （ポート違いにapiサーバーがあるため取得）
-                const url = 'http://'+ host +':3000/cam/search'; // 送信先のURL
+                const url = 'https://'+ host +'/api/cam/search'; // 送信先のURL
                 const response = await fetch(url, {
                     method: 'POST',
                     body: formData

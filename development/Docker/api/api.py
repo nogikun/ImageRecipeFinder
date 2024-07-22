@@ -46,9 +46,9 @@ app.add_middleware(
 #
 # 機能検証用エンドポイント /test
 #
-@app.get("/test/get")
+@app.get("/status")
 async def read_root():
-    return {"message":"Test OK"}
+    return {"status":"server is running"}
 
 @app.post("/test/uploadfile/")
 async def create_upload_file(img: UploadFile):
