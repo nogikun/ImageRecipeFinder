@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 import psycopg2
 import json
 from pprint import pprint
+import time
 
 # local import
 from components.Rakuten_recipe_api import req_recipe
+from components.img_viewer import ImageToTerminal
 
 # データベース接続設定
 connection = psycopg2.connect(
@@ -75,6 +77,10 @@ async def search_cam(cap : UploadFile):
     # 画像を受け取ったことを確認
     print('画像を受付けました')
     print("image shape:",image.shape) # 480 x 640 x 3 (width x height x color channel) の形式である事を想定
+
+    
+    image_processor = ImageToTerminal()
+    image_processor.run(image)
 
     # 
     # ここに画像検索処理を記述
