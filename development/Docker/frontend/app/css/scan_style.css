@@ -46,6 +46,189 @@ header h2{
 }
 
 
+/* ポップアップウィンドウ */
+
+.ingredients_list{
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 80px;
+    width: 360px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+                0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+
+.ingredients_list img{
+    position: absolute;
+    left: 40px;
+    height: 40px;
+    width: 50px;
+    object-fit: contain;
+}
+
+.ingredients_name{
+    position: relative;
+    left: 90px;
+    width: 140px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.ingredients_price::before{
+    content: "￥ ";
+    font-size: 14px;
+}
+
+.ingredients_price{
+    position: relative;
+    left: 20px;
+    width: 160px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.cart_in{
+    display: flex;
+    position: relative;
+    align-items: center;
+    top: 15px;
+    left: 25%;
+    height: 40px;
+    width: 200px;
+    border-radius: 10px;
+    background-color: rgb(220, 220, 220);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+                0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.cart_in_text{
+    left: 60px;
+    width: 180px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+#popup {
+    display: none; /* label でコントロールするので input は非表示に */
+}
+
+.popup-open {
+    cursor: pointer; /* マウスオーバーでカーソルの形状を変えることで、クリックできる要素だとわかりやすいように */
+}
+
+.popup-overlay {
+    display: none; /* input にチェックが入るまでは非表示に */
+}
+
+#popup:checked ~ .popup-overlay {
+    display: block;
+    z-index: 99999;
+    background-color: #00000070;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.popup-window {
+
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup-text {
+    margin: 0;
+}
+
+.popup-text:not(:last-of-type) {
+    margin-bottom: 1em
+}
+
+.popup-close {
+    cursor: pointer;
+    position: absolute;
+    top: -24px;
+    right: 0;
+}
+
+/* チェックボックス */
+.checkbox-container {
+    position: relative;
+    left: 10px;
+    top: 4px;
+  }
+  
+  .checkbox {
+    margin-right: .5rem;
+    position: relative;
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid #cccfdb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  
+    svg {
+      fill: none;
+      stroke: #ea5514;
+      stroke-dasharray: 28;
+      stroke-dashoffset: 28;
+      transition: all 0.3s ease;
+      transform: scale(0.8);
+      position: absolute;
+      top: -2px;
+      left: -2px;
+  
+      &:first-child {
+        stroke: #fff;
+      }
+    }
+  }
+  
+  .check {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+      position: absolute;
+    top: 0;
+    left: 0;
+    
+    &:after {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      content: '';
+      top: 0;
+      left: 0;
+      z-index: 2;
+      cursor: pointer;
+    }
+  
+    &:checked {
+      & + .checkbox {
+        color: #ea5514;
+        border-color: #ea5514;
+  
+        svg {
+          stroke-dashoffset: 0;
+        }
+      }
+    }
+}
+  
+.template {
+    display: none;
+}
 
 /* カートの中の点数と金額 */
 .incart{

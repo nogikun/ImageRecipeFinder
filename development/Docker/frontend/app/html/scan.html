@@ -15,11 +15,56 @@
         <div class="cart_camera">
             <!-- カメラ映像 -->
             <video id="cameraFeed" autoplay playsinline></video>
-            <button id="captureButton">
+            <button id="captureButton"  class="popup-open">
                 <img src="/img/camera_logo.png" alt="カメラのロゴ">
             </button> 
         </div>
         
+        <!-- ポップアップウィンドウ -->
+        <input type="checkbox" id="popup">
+        <div class="popup-overlay">
+            <div class="popup-window">
+                <div class="popup-text">
+                    <div class="ingredients_list">
+                        <img src="/img/food1_1.png" alt="">
+                        <div class="ingredients_name">にんじん</div>                   
+                        <div class="ingredients_price">100</div>
+                    </div>
+                    <div class="cart_in">
+                        <div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" class="check" />
+                                <div class="checkbox">
+                                    <svg viewBox="0 0 28 28" width="28px" hegiht="28px">
+                                        <use href="#check-stroke-background"></use>
+                                    </svg>
+                                    <svg viewBox="0 0 28 28" width="28px" hegiht="28px">
+                                        <use href="#check-stroke"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <svg class="template">
+                                <symbol id="check-stroke">
+                                    <polyline stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="5 10.5 10.5 16 23.5 4"></polyline>
+                                </symbol>
+                                <symbol id="check-stroke-background">
+                                    <polyline stroke-width="8" stroke-linejoin="round" stroke-linecap="round" points="5 11 10.5 15 23.5 4"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                        <div class="cart_in_text">カートに追加しました</div>
+                    </div>
+                </div>
+                <label class="popup-close" for="popup">
+                    <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="0" y1="0" x2="18" y2="18" stroke="white" stroke-width="3"></line>
+                        <line x1="0" y1="18" x2="18" y2="0" stroke="white" stroke-width="3"></line>
+                    </svg>
+                </label>
+            </div>
+        </div>
+
 
         <!-- カートの中の点数と金額 -->
         <div class="incart">

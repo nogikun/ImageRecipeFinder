@@ -28,16 +28,33 @@ window.onload = function() {
     calculateCart();
 };
 
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     const stream = await setupCamera();
     const video = document.getElementById('cameraFeed');
     const captureButton = document.getElementById('captureButton');
 
+    // ポップアップウィンドウの閉じるボタン（×ボタン）がクリックされた時の処理
+    const popupClose = document.querySelector('.popup-close');
+    popupClose.addEventListener('click', function() {
+        popup.checked = false; // チェックボックスを非チェック状態にする
+        popupOverlay.style.display = 'none'; // ポップアップウィンドウを非表示にする
+    });
+
     document.getElementById('captureButton').addEventListener('click', () => {
+        // 結果の表示に関する変数
+        const popup = document.getElementById('popup');
+        const popupOverlay = document.querySelector('.popup-overlay');
+
+        // カメラ映像に関する変数
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-
         const context = canvas.getContext('2d'); // 白紙のキャンバスを取得
         context.drawImage(video, 0, 0, canvas.width, canvas.height); // キャンバスにカメラの映像を描画
 
@@ -72,6 +89,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                             //
                             // ココに商品情報を表示する処理を追加
                             //
+                            // チェックボックスの状態を切り替えることでポップアップウィンドウの表示・非表示を制御
+                            popup.checked = !popup.checked;
+                            // ポップアップウィンドウのオーバーレイが表示されるようにする
+                            if (popup.checked) {
+                                popupOverlay.style.display = 'block';
+                            } else {
+                                popupOverlay.style.display = 'none';
+                            }
                         }
                       });
                 } else {
