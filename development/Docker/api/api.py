@@ -78,16 +78,16 @@ async def search_cam(cap : UploadFile):
     # 
     # ここに画像検索処理を記述
     #
-    results = ["オレンジ","バナナ"] # 仮の結果
+    results = ["lettuce","carrot"] # 仮の結果
 
     # 検索結果を返す
     res = {"item_list":[]}
     for result in results:
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM items WHERE name = %s", (result,))
+        cursor.execute("SELECT * FROM items WHERE label = %s", (result,))
         item = cursor.fetchone()
         cursor.close()
-        item = Item(id=item[0], name=item[1], price=item[2], about=item[3], amount=1)
+        item = Item(id=item[0], name=item[1], price=item[3], about=item[4], amount=1)
         res["item_list"].append(item.dict())
 
     #return {"item_list":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]}
