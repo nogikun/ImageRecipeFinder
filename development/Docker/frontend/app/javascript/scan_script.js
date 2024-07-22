@@ -2,7 +2,9 @@
 async function setupCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
-            video: true
+            video: {
+                facingMode: 'environment', // リアカメラを使用する
+            }
         });
         const videoElement = document.getElementById('cameraFeed');
         videoElement.srcObject = stream;
