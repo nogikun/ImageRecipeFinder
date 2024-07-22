@@ -78,7 +78,7 @@ async def search_cam(cap : UploadFile):
     # 
     # ここに画像検索処理を記述
     #
-    results = ["lettuce","carrot"] # 仮の結果
+    results = ["carrot"] # 仮の結果
 
     # 検索結果を返す
     res = {"item_list":[]}
