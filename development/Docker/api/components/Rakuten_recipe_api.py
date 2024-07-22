@@ -5,7 +5,8 @@ from pprint import pprint
 import pandas as pd
 
 class req_recipe:
-  def __init__(self, application_id):
+  def __init__(self, application_id, interval_sec=3):
+    self.interval_sec = interval_sec
     self.application_id = application_id
     self.category_list_url = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?format=json'
     self.category_ranking_url = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json'
@@ -27,7 +28,7 @@ class req_recipe:
     
     result = []
     for search_idx, [index, row] in enumerate(df_keyword.iterrows()):
-      time.sleep(3)
+      time.sleep(self.interval_sec)
       params = {
           "format" : "json",
           "applicationId" : self.application_id,

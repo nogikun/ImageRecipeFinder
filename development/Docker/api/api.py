@@ -7,6 +7,7 @@ from io import BytesIO # メモリ上でバイナリデータを扱うための�
 import matplotlib.pyplot as plt
 import psycopg2
 import json
+from pprint import pprint
 
 # local import
 from components.Rakuten_recipe_api import req_recipe
@@ -94,33 +95,46 @@ async def search_cam(cap : UploadFile):
     return res
 
 @app.post("/resipe/search")
-async def search_resipe(Material: Item,
-                        cols = ['recipeTitle','recipeMaterial'],
-                        keys = ['name','items']):
-    r = req_recipe('1031564129861406174')
+async def search_resipe(Material: Item, interval_sec: Optional[int] = 3):
+    recipe_api = req_recipe('1031564129861406174', interval_sec=interval_sec)
 
-    res = r(Material.name) # レシピ検索 : 第一引数に素材を指定
+    data = recipe_api(Material.name) # レシピ検索 : 第一引数に素材を指定
 
     Response = []
-    for i in range(len(res)):
-        Response.append({key: res[i][col] for col, key in zip(cols,keys)})
+    for i in range(len(data)):
+        res = {
+            'recipeTitle': data[i]['recipeTitle'].replace('\u3000', ''),
+            'recipeMaterial': data[i]['recipeMaterial'],
+            'recipeCost':data[i]['recipeCost'],
+            'recipeUrl':data[i]['recipeUrl'],
+            'foodImageUrl':data[i]['foodImageUrl'],
+            'recipeDescription':data[i]['recipeDescription'].replace('\n', ' ')
+            }
+        Response.append(res)
 
-    
     for i, res in enumerate(Response):
         items = []
-        for item in res['items']:
+        for item in res['recipeMaterial']:
             cursor = connection.cursor()
             cursor.execute("SELECT * FROM items WHERE name = %s", (item,))
             item_detail = cursor.fetchone()
             cursor.close()
+
             if item_detail is None:
                 # 商品が見つからなかった場合
                 item = Item(id="0", name=item, price=0, about="not found", amount=1)
             else:
                 # 商品が見つかった場合
-                item = Item(id=item_detail[0], name=item_detail[1], price=item_detail[2], about=item_detail[3], amount=1)
+                item = Item(id=item_detail[0], name=item_detail[1], price=item_detail[3], about=item_detail[4], amount=1)
             items.append(item)
-        Response[i]['items'] = items # DBに基づく商品情報に変換
+        Response[i]['recipeMaterial'] = items # DBに基づく商品情報に変換
+    
+    # Key情報を変更
+    keys = ['title','items','sample_cost','url','image_url','about']
+    for i,res in enumerate(Response):
+        values = list(res.values()) # 値のリストを取得
+        res = dict(zip(keys, values)) # Keyと値を組み合わせて辞書を作成
+        Response[i] = res
     
     # ここにレシピ検索処理を記述
     return {"resipe_list":Response}
