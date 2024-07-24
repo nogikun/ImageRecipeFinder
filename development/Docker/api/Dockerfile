@@ -1,11 +1,26 @@
 FROM python:3.10.12
 
-RUN apt-get update
+WORKDIR /usr/src/app
 
+RUN apt-get update && \
+apt-get install -y \
+libgl1-mesa-glx \
+libglib2.0-0 \
+&& apt-get clean
 # コンテナ内で必要なファイルやスクリプトをコピー
 #COPY ./api.py /api.py
-#COPY ./requirements.txt /requirements.txt
+COPY requirements.txt ./requirements.txt
 
-CMD ["bash", "-c", "pip install --upgrade pip && pip install -r requirements.txt && uvicorn api:app --reload --port 3000 --host 0.0.0.0"]
+RUN mkdir -p /usr/src/app/models && \
+wget https://huggingface.co/nogikun/IPUT_Models/resolve/main/yolo/yolov5/yolov5s_20240723.pt \
+-O ./models/yolov5s_20240723.pt
+
+RUN pip install --upgrade pip && \
+pip install --no-cache-dir -r requirements.txt && \
+pip install --no-cache-dir -r https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
+
+# エントリーポイントとしてsupervisordを指定
+#CMD ["/usr/bin/supervisord"]
+CMD ["bash", "-c", "uvicorn api:app --reload --port 3000 --host 0.0.0.0"]
 
 EXPOSE 3000

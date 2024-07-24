@@ -4,6 +4,8 @@ async function setupCamera() {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: 'environment', // リアカメラを使用する
+                width: { ideal: 600 },     // 幅の理想的な解像度
+                height: { ideal: 600 }     // 高さの理想的な解像度
             }
         });
         const videoElement = document.getElementById('cameraFeed');
