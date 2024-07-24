@@ -21,7 +21,7 @@ header h2{
 
 /* カメラの映像 */
 .cart_camera{
-    height: 600px;
+    height: 400px;
     width: 380px;
     margin: 10px;
     border-radius: 10px;
