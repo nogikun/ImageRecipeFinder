@@ -11,9 +11,11 @@ libglib2.0-0 \
 #COPY ./api.py /api.py
 COPY requirements.txt ./requirements.txt
 
+# モデルのダウンロード
 RUN mkdir -p /usr/src/app/models && \
 wget https://huggingface.co/nogikun/IPUT_Models/resolve/main/yolo/yolov5/yolov5s_20240723.pt \
 -O ./models/yolov5s_20240723.pt
+COPY ./models /usr/src/app/models
 
 RUN pip install --upgrade pip && \
 pip install --no-cache-dir -r requirements.txt && \

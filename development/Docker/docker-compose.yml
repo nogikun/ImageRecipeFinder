@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./api/components:/usr/src/app/components
-      # - ./api/models:/usr/src/app/models
+      # - ./api/models:/usr/src/app/models # モデルの保存先
       - ./api/api.py:/usr/src/app/api.py
       - ./api/requirements.txt:/usr/src/app/requirements.txt
     ports:
