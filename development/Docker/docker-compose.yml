@@ -45,10 +45,18 @@ services:
       context: ./api
       dockerfile: Dockerfile
     volumes:
-      - ./api/components:/components
-      - ./api/api.py:/api.py
-      - ./api/requirements.txt:/requirements.txt
+      - ./api/components:/usr/src/app/components
+      # - ./api/models:/usr/src/app/models # モデルの保存先
+      - ./api/api.py:/usr/src/app/api.py
+      - ./api/requirements.txt:/usr/src/app/requirements.txt
     ports:
       - "3000:3000"
     depends_on:
       - db
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
