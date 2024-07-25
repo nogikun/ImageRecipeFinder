@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             console.log('popup:', popup.checked);
                             if (popup.checked) {
                                 popupOverlay.style.display = 'block';
+                                popupOverlay.querySelector('.ingredients_name').textContent = item.name; // 商品名を表示
                             } else {
                                 popupOverlay.style.display = 'none';
                             }
