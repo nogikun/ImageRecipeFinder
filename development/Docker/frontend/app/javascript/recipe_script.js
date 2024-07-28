@@ -48,15 +48,19 @@ async function addRecipeCards() {
             data.then(result => {
                 console.log('Success:', result.recipe_list);
                 recipes = result.recipe_list;
-                // recipes.length = 5; // recipesの数量を 5 件以下に制限
+                recipes.length = 10; // recipesの数量を 10 件以下に制限
 
                 // レシピカードを生成
-                recipes.forEach(recipe => {
+                recipes.forEach((recipe,index) => {
                     console.log('recipe:', recipe);
                     // 新しいレシピカードのHTMLを作成
                     let newRecipeCard = document.createElement('a');
                     newRecipeCard.setAttribute('href', recipe.url);
                     newRecipeCard.classList.add('recipe_card');
+
+                    // card_id を追加
+                    const card_id = "recipe_card_" + index;
+                    newRecipeCard.setAttribute('id', card_id);
 
                     newRecipeCard.innerHTML = `
                         <div class="recipe_name">${recipe.title}</div>
@@ -76,6 +80,15 @@ async function addRecipeCards() {
 
                     // recipePageに新しいレシピカードを追加
                     recipePage.appendChild(newRecipeCard);
+
+                    const card = document.querySelector("#" + card_id)
+                    if (window.getComputedStyle(card.querySelector(".recipe_name")).height > '30px') {
+                        card.style.height = '230px';
+                    }
+                    
+                    // bodyの高さを調整
+                    body_height = 900 + 230 * (index + 1);
+                    document.querySelector('body').style.height = String(body_height) + 'px';
                 });
             });
         } else {
