@@ -87,7 +87,7 @@ async function addRecipeCards() {
                     }
                     
                     // bodyの高さを調整
-                    body_height = 900 + 230 * (index + 1);
+                    const body_height = 900 + 230 * (index + 1);
                     document.querySelector('body').style.height = String(body_height) + 'px';
                 });
             });

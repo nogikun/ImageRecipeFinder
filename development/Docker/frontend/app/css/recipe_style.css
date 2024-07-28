@@ -34,7 +34,7 @@ a{
 
 .recipe_page{
     display: inline-grid;
-    max-height: 800px;
+    max-height: 610px;
     overflow-y: auto;
     padding: 10px; /* 表の周囲の余白 */
 }
