@@ -1,12 +1,16 @@
 # 画像分類モデルを用いたレシピ検索アプリケーション(仮)
+このレポジトリは私の通う大学内のグループワークで作成したものであり、その他で運用する事を目的としていません。
 
 ### 1. 実行方法
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/nogikun/IPUT3_AIDev_case3)
+
 本レポジトリのルートからターミナルを開き、下記コマンドを入力する事でシステムが起動します。
 ```bash
 cd development/Docker
 docker-compose up
 ```
-サーバーの起動後、[localhost:80](localhost) にアクセスする事でWebアプリケーションにアクセスする事ができます。
+サーバーの起動後、[localhost:80](localhost) にアクセスする事でWebアプリケーションにアクセスする事ができます。<br>
+ローカルネットワーク内からアクセスする場合、ホストにサーバーのIPv4アドレスを入力してください。
 
 ### 2. ポートについて
 |port|詳細|
