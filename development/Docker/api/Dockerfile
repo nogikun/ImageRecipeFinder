@@ -14,7 +14,10 @@ COPY requirements.txt ./requirements.txt
 # モデルのダウンロード
 RUN mkdir -p /usr/src/app/models && \
 wget https://huggingface.co/nogikun/IPUT_Models/resolve/main/yolo/yolov5/yolov5s_20240723.pt \
--O ./models/yolov5s_20240723.pt
+-O ./models/yolov5s_20240723.pt && \
+wget https://huggingface.co/nogikun/IPUT_Models/resolve/main/yolo/yolov5/yolov5_20240729.pt \
+-O ./models/yolov5_20240729.pt
+
 COPY ./models /usr/src/app/models
 
 RUN pip install --upgrade pip && \
