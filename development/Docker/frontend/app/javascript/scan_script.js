@@ -1,3 +1,6 @@
+// スプリクト間で共有する変数を定義
+import itemList from './data.js';
+
 // カメラにアクセスする関数
 async function setupCamera() {
     try {
@@ -84,7 +87,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const data = response.json();
                     data.then(result => {
                         console.log('Success:', result.item_list);
-                        const itemList = result.item_list;
+                        // itemList = result.item_list;
+
+                        // itemListに商品を追加
+                        itemList.length = 0; // itemListを初期化
+                        for (const item of result.item_list) {
+                            itemList.push(item);
+                        }
+
                         for (let i = 0; i < itemList.length; i++) {
                             const item = itemList[i];
                             console.log('item:', item);
