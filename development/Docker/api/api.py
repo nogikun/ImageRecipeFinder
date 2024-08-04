@@ -136,7 +136,7 @@ async def search_cam(cap : UploadFile):
     #return {"item_list":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]}
     return res
 
-@app.post("/resipe/search")
+@app.post("/recipe/search")
 async def search_resipe(Material: Item, interval_sec: Optional[int] = 3):
     recipe_api = req_recipe('1031564129861406174', interval_sec=interval_sec)
 
@@ -152,8 +152,15 @@ async def search_resipe(Material: Item, interval_sec: Optional[int] = 3):
             'foodImageUrl':data[i]['foodImageUrl'],
             'recipeDescription':data[i]['recipeDescription'].replace('\n', ' ')
             }
+        # データを整形する
+        try :
+            res['recipeCost'] = res['recipeCost'].split('円')[0] # 価格のみ取得
+        except:
+            res["recipeCost"] = 'None' # 価格のみ取得
+
         Response.append(res)
 
+    # 商品情報をDBから取得
     for i, res in enumerate(Response):
         items = []
         for item in res['recipeMaterial']:
@@ -179,7 +186,7 @@ async def search_resipe(Material: Item, interval_sec: Optional[int] = 3):
         Response[i] = res
     
     # ここにレシピ検索処理を記述
-    return {"resipe_list":Response}
+    return {"recipe_list":Response}
     #return {"resipe_list":[{"name":"resipe1","items":[{"name":"item1","id":1,"price":1000,"amount":1,"about":"item1"},{"name":"item2","id":2,"price":2000,"amount":1,"about":"item2"}]}]}
 
 @app.post("/cart/sum")

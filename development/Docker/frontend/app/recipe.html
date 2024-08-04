@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/recipe_style.css">
-    <script src="/javascript/recipe_script.js" defer></script>
+    <script type="module" src="/javascript/recipe_script.js" defer></script>
     <title>買い物アシスタント(レシピ)</title>
 </head>
 <body>
@@ -12,17 +12,16 @@
         <h2>買い物アシスタント</h2>
     </header>
     <main>
-    <div class="recipe_page">
-        
-        <!-- JavaScriptで生成されるレシピカード要素が挿入されます -->
-
-
-    </div>
-
-
-
-
+        <div class="recipe_page">
+            <!-- JavaScriptで生成されるレシピカード要素が挿入されます -->
+        </div>
     </main>
+
+    <p id="status">検索中...</p>
+
+    <p>このレシピは <a href="https://webservice.rakuten.co.jp/">Rakuten webservice</a> を用いて<br>
+        作成されています。</p>
+
     <footer>
         <a href="./main.html"><img src="../img/img1.png" alt=""></a>
         <a href="./scan.html"><img src="../img/img2.png" alt=""></a>
