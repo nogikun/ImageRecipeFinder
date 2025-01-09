@@ -2,7 +2,7 @@ uvicorn==0.29.0
 fastapi==0.110.0
 #mysql-connector-python==8.2.0
 psycopg2-binary==2.9.9
-python-multipart==0.0.9
+python-multipart==0.0.18
 matplotlib==3.9.1
 pandas==2.2.2
 pillow==10.4.0
